@@ -1,0 +1,96 @@
+# src/forge/templates/python/base/.pre-commit-config.yaml.j2
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: debug-statements
+      - id: check-toml
+
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        language_version: python3
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-all]
+        args: [--ignore-missing-imports]
+
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest-check
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [commit]
+        
+      - id: coverage-check
+        name: coverage-check
+        entry: pytest --cov=src --cov-fail-under=80
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [push]
+
+# src/forge/templates/python/base/scripts/git-hooks/pre-commit.j2
+#!/bin/sh
+# Custom pre-commit hook for {{ name }}
+
+set -e
+
+echo "Running pre-commit checks..."
+
+# Check for debug statements
+echo "🔍 Checking for debug statements..."
+if git diff --cached --name-only | grep '\.py$' | xargs grep -l 'print\|breakpoint\|pdb'; then
+    echo "❌ Found debug statements. Please remove them before committing."
+    exit 1
+fi
+
+# Run code formatting
+if command -v black > /dev/null; then
+    echo "🎨 Running black..."
+    black --check .
+else
+    echo "⚠️ black not found. Skipping code formatting check."
+fi
+
+if command -v isort > /dev/null; then
+    echo "📦 Running isort..."
+    isort --check-only .
+else
+    echo "⚠️ isort not found. Skipping import sorting check."
+fi
+
+# Run type checking
+if command -v mypy > /dev/null; then
+    echo "🔍 Running mypy..."
+    mypy src/
+else
+    echo "⚠️ mypy not found. Skipping type checking."
+fi
+
+# Run tests
+if command -v pytest > /dev/null; then
+    echo "🧪 Running tests..."
+    pytest tests/
+else
+    echo "⚠️ pytest not found. Skipping tests."
+fi
+
+echo "✅ All checks passed!"

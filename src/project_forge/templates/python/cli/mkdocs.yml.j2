@@ -1,0 +1,205 @@
+# src/forge/templates/python/base/mkdocs.yml.j2
+site_name: {{ name }}
+site_description: {{ description if description else "Documentation for " + name }}
+site_author: {{ author }}
+repo_url: https://github.com/{{ author }}/{{ package_name }}
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+    - search.share
+    - search.suggest
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_source: true
+            show_root_heading: true
+
+nav:
+  - Home: index.md
+  - User Guide:
+    - Installation: guides/installation.md
+    - Getting Started: guides/getting-started.md
+    - Configuration: guides/configuration.md
+  - API Reference:
+    - Overview: api/index.md
+  - Examples:
+    - Basic Usage: examples/basic.md
+    - Advanced Usage: examples/advanced.md
+  - Contributing: contributing.md
+  - Changelog: changelog.md
+
+# src/forge/templates/python/base/docs/index.md.j2
+# Welcome to {{ name }}
+
+{{ description if description else "Add your project description here." }}
+
+## Features
+
+- Feature 1
+- Feature 2
+- Feature 3
+
+## Installation
+
+```bash
+pip install {{ package_name }}
+```
+
+## Quick Start
+
+```python
+from {{ module_name }} import example
+
+# Add usage examples here
+```
+
+## Documentation
+
+Check out our guides:
+
+- [Installation](guides/installation.md)
+- [Getting Started](guides/getting-started.md)
+- [Configuration](guides/configuration.md)
+
+For detailed documentation, see the [API Reference](api/index.md).
+
+# src/forge/templates/python/base/docs/guides/installation.md.j2
+# Installation Guide
+
+## Requirements
+
+- Python {{ requires_python }}
+- pip (Python package installer)
+
+## Basic Installation
+
+You can install {{ name }} directly from PyPI:
+
+```bash
+pip install {{ package_name }}
+```
+
+## Development Installation
+
+For development, you'll want to install the package with extra dependencies:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/{{ author }}/{{ package_name }}.git
+   cd {{ package_name }}
+   ```
+
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install development dependencies:
+   ```bash
+   pip install -e ".[dev]"
+   ```
+
+## Verifying Installation
+
+You can verify your installation by running:
+
+```python
+import {{ module_name }}
+print({{ module_name }}.__version__)
+```
+
+# src/forge/templates/python/base/docs/guides/getting-started.md.j2
+# Getting Started
+
+This guide will help you get started with {{ name }}.
+
+## Basic Usage
+
+```python
+from {{ module_name }} import example
+
+# Add basic usage examples
+```
+
+## Common Operations
+
+### Operation 1
+
+Description and example of the first common operation.
+
+### Operation 2
+
+Description and example of the second common operation.
+
+## Best Practices
+
+- Best practice 1
+- Best practice 2
+- Best practice 3
+
+# src/forge/templates/python/base/docs/api/index.md.j2
+# API Reference
+
+This section contains detailed API documentation for {{ name }}.
+
+## Module Structure
+
+```
+{{ module_name }}/
+├── __init__.py
+├── core/
+│   └── ...
+└── utils/
+    └── ...
+```
+
+## Core API
+
+::: {{ module_name }}.core
+
+## Utilities
+
+::: {{ module_name }}.utils

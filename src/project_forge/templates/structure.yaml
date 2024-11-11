@@ -1,0 +1,34 @@
+project_types:
+  basic:
+    name: "Basic Python Package"
+    description: "Standard Python package template"
+    required_dirs:
+      - src/{module_name}
+      - tests/unit
+      - tests/integration
+      - docs/api
+      - docs/guides
+      - examples
+    required_files:
+      pyproject.toml:
+        description: "Project configuration and metadata"
+        validators:
+          - has_valid_name
+          - has_valid_version
+      README.md:
+        description: "Project documentation"
+      LICENSE:
+        description: "License information"
+      .gitignore:
+        description: "Git ignore patterns"
+
+  cli:
+    inherits: basic
+    name: "CLI Application"
+    description: "Command-line interface application template"
+    required_dirs:
+      - src/{module_name}/cli
+      - src/{module_name}/commands
+    required_files:
+      "src/{module_name}/cli/__init__.py":
+        description: "CLI package init"

@@ -1,0 +1,62 @@
+# src/forge/templates/variants.yml
+
+basic:
+  name: "Basic Python Package"
+  description: "A simple Python package template"
+  dependencies:
+    rich: ">=13.0.0"
+  features:
+    cli: false
+    documentation: true
+    testing: true
+  files:
+    pyproject: "python/base/pyproject.toml.j2"
+    readme: "python/base/README.md.j2"
+
+cli:
+  name: "CLI Application"
+  description: "A command-line interface application template"
+  dependencies:
+    click: ">=8.0.0"
+    rich: ">=13.0.0"
+    typer: ">=0.9.0"
+  features:
+    cli: true
+    documentation: true
+    testing: true
+  files:
+    pyproject: "python/cli/pyproject.toml.j2"
+    readme: "python/cli/README.md.j2"
+
+web:
+  name: "Web Application"
+  description: "A web application template using FastAPI"
+  dependencies:
+    fastapi: ">=0.100.0"
+    uvicorn: ">=0.20.0"
+    pydantic: ">=2.0.0"
+  features:
+    cli: false
+    documentation: true
+    testing: true
+    api: true
+  files:
+    pyproject: "python/web/pyproject.toml.j2"
+    readme: "python/web/README.md.j2"
+
+data:
+  name: "Data Science Package"
+  description: "A data science project template"
+  dependencies:
+    numpy: ">=1.20.0"
+    pandas: ">=2.0.0"
+    scikit-learn: ">=1.0.0"
+    matplotlib: ">=3.5.0"
+  features:
+    cli: false
+    documentation: true
+    testing: true
+    notebooks: true
+  files:
+    pyproject: "python/data/pyproject.toml.j2"
+    readme: "python/data/README.md.j2"
