@@ -105,6 +105,38 @@ Configure default settings:
 
 Projects created by Project-Forge with --cli flag follow this structure:
 ```bash
+$ project-forge new my-cli --cli --author "thatch" --email "gnarzilla@deadlight.boo"
+╭─────── Project Creation ────────╮
+│ Creating Python package: my-cli │
+╰─────────────────────────────────╯
+
+Project Structure:
+my-cli/
+├── .github/
+├── .github/workflows/
+├── .gitignore
+├── LICENSE
+├── README.md
+├── docs/
+├── examples/
+├── pyproject.toml
+├── src/
+├── src/my_cli/
+├── src/my_cli/cli/
+└── tests/
+✨ Project created successfully at /home/thatch/projects/my-cli
+(venv) thatch@thatch:~/Dev/project_forge$ project-forge check ~/projects/my-cli --type cli
+Checking cli project structure in /home/thatch/projects/my-cli...
+                                       Validation Results                                        
+┏━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Status ┃ Message                                   ┃ Details                                  ┃
+┡━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ !      │ Empty Examples directory                  │ Add content to: examples/                │
+│ !      │ Incomplete README.md                      │ Add section: Description                 │
+│ ○      │ Missing recommended pyproject.toml fields │ Consider adding:                         │
+│        │                                           │ project.optional-dependencies.dev        │
+└────────┴───────────────────────────────────────────┴──────────────────────────────────────────┘
+✨ Project validation passed!
 
 ```
 
