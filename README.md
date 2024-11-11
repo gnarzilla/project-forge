@@ -76,8 +76,13 @@ project-forge check path/to/project --type cli
 ## Project Structure
 
 Projects created by Project Forge follow this structure:
-```
+```bash
+
 my-project/
+├── .github/
+├── .github/
+│   └── workflows/
+├── .gitignore
 ├── src/
 │   └── my_project/
 │       ├── __init__.py
@@ -87,12 +92,21 @@ my-project/
 │   └── integration/
 ├── docs/
 ├── examples/
+├── LICENSE
+├── README.md
 └── pyproject.toml
 ```
 
 ## Configuration
 
 Configure default settings:
+
+### Examples
+
+Projects created by Project-Forge with --cli flag follow this structure:
+```bash
+
+```
 
 ### Development Setup
 
